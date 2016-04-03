@@ -1,4 +1,4 @@
-App.sale = App.cable.subscriptions.create "SaleChannel",
+App.sales = App.cable.subscriptions.create "SalesChannel",
   connected: ->
     # Called when the subscription is ready for use on the server
 
@@ -8,5 +8,5 @@ App.sale = App.cable.subscriptions.create "SaleChannel",
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
 
-  dispatch: ->
-    @perform 'dispatch'
+  broadcast: ->
+    @perform 'broadcast'
