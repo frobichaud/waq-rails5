@@ -1,6 +1,6 @@
 class SalesController < ApplicationController
   def index
-    page = params[:page] || 1
-    @sales = Sale.all#.paginate page: 1, pageSize: 25
+    @sales = Sale.last(10).reverse
+    @total = Sale.sum :amount
   end
 end
