@@ -1,0 +1,7 @@
+use_frameworks!
+
+target "model3" do
+  pod "ActionCableClient"
+  pod "SnapKit"
+  pod "Alamofire"
+end
