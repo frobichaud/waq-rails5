@@ -31,7 +31,7 @@ class SalesViewController : UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         getSales()
         
-        client = ActionCableClient(URL: NSURL(string: "ws://\(WS_HOST):\(WS_PORT)/sales_cable")!)
+        client = ActionCableClient(URL: NSURL(string: "ws://\(WS_HOST):\(WS_PORT)/cable")!)
         client!.origin = WS_HOST
         client!.connect()
         
@@ -57,6 +57,7 @@ class SalesViewController : UIViewController, UITableViewDataSource, UITableView
     
     // MARK: REST API
     private func getSales() {
+//        Alamofire.request(.GET, "http://private-5df9d-model3.apiary-mock.com/sales")
         Alamofire.request(.GET, "http://\(WS_HOST):\(WS_PORT)/sales/index.json")
             .responseJSON { response in
                 print(response.request)  // original URL request
@@ -68,8 +69,9 @@ class SalesViewController : UIViewController, UITableViewDataSource, UITableView
                     self._currentTotal = response["total"] as! Int
                     self.updateTotal()
                     self._data = (response["sales"] as! NSArray).map { sale in
-                        let name = String(sale["name"]!)
-                        return Sale(name: name, amount: 2)
+                        let name = sale["name"] as! String
+                        let amount = sale["amount"] as! Int
+                        return Sale(name: name, amount: amount)
                     }
                     self._tableView.reloadData()
                 }

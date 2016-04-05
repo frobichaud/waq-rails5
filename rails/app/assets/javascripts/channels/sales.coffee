@@ -1,9 +1,10 @@
 App.sales = App.cable.subscriptions.create 'SalesChannel',
   connected: ->
-    @perform 'register'
+    console.log '[WebSocket] connected - SalesChannel'
 
   disconnected: ->
     # Called when the subscription has been terminated by the server
+    console.log '[WebSocket] disconnected - SalesChannel'
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
@@ -15,15 +16,15 @@ App.sales = App.cable.subscriptions.create 'SalesChannel',
     total = document.getElementById 'total'
     document.getElementById('total').innerText = parseInt(total.innerText) + data['amount']
 
-  broadcast: (data) ->
-    @perform 'broadcast',
-      name: document.getElementById('name').value
-      amount: document.getElementById('amount').value
+  broadcast: ->
+    console.log '[WebSocket] sending data to server'
 
-  register: ->
-    @perform 'register'
+    name = document.getElementById('name').value
+    amount = document.getElementById('amount').value
+    @perform 'broadcast',
+      name: name
+      amount: amount
 
 $(document).on 'click', '[data-action=buy]', (event) ->
-  App.sales.broadcast "test"
-  event.target.value = ""
+  App.sales.broadcast()
   event.preventDefault()
