@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get '/', controller: :home, action: :index
 
-  get 'sales/index'
+  resources :sales, only: [:index, :create]
 
   mount ActionCable.server => '/cable'
 

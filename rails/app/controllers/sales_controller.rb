@@ -8,4 +8,9 @@ class SalesController < ActionController::API
         sales: @sales.collect {|sale| {name: sale.name, amount: sale.amount}}
     }
   end
+
+  def create
+    Sale.create! name: params['name'], amount: params['amount']
+    render status: 204
+  end
 end
