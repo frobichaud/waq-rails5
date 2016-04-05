@@ -16,15 +16,15 @@ App.sales = App.cable.subscriptions.create 'SalesChannel',
     total = document.getElementById 'total'
     document.getElementById('total').innerText = parseInt(total.innerText) + data['amount']
 
-  broadcast: ->
+  sendDataToServer: (name, amount) ->
     console.log '[WebSocket] sending data to server'
 
-    name = document.getElementById('name').value
-    amount = document.getElementById('amount').value
-    @perform 'broadcast',
+    @perform 'clientMessage',
       name: name
       amount: amount
 
 $(document).on 'click', '[data-action=buy]', (event) ->
-  App.sales.broadcast()
+  name = document.getElementById('name').value
+  amount = document.getElementById('amount').value
+  App.sales.sendDataToServer name, amount
   event.preventDefault()

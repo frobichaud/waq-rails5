@@ -8,7 +8,7 @@ class SalesChannel < ApplicationCable::Channel
     # Any cleanup needed when channel is unsubscribed
   end
 
-  def broadcast(infos)
+  def clientMessage(infos)
     Sale.create! name: infos['name'], amount: infos['amount'].gsub(/\D/,'').to_i
   end
 end
