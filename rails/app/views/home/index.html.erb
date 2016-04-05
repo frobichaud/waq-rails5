@@ -1,2 +1,29 @@
 <div ng-app='sales' ng-controller='SalesController'>
+
+  <div class="row">
+    <div class="large-4 columns">
+      <input ng-model="name" id="name" type="text" placeholder="Name" />
+    </div>
+
+    <div class="large-4 columns">
+      <select ng-model="amount" id="amount">
+        <option value="500">$500 CAD</option>
+        <option value="1000">$1,000 USD</option>
+        <option value="1500">$1,500 AUD</option>
+      </select>
+    </div>
+
+    <div class="large-4 columns">
+      <button class="button" href="javascript:void(0)" ng-click="postSale()">Buy Now</button>
+    </div>
+  </div>
+
+  <ul id="sales" class="pricing-table">
+    <li class="title">Model 3 Sales</li>
+    <li class="price"><span id="total">${{service.total}}</span></li>
+    <li class="bullet-item" ng-repeat="sale in service.sales">
+      {{sale.name}} - ${{sale.amount}}
+    </li>
+  </ul>
+
 </div>

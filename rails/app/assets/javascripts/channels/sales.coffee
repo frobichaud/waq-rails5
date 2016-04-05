@@ -1,3 +1,5 @@
+#= require angular
+
 App.sales = App.cable.subscriptions.create 'SalesChannel',
   connected: ->
     console.log '[WebSocket] connected - SalesChannel'
@@ -8,13 +10,8 @@ App.sales = App.cable.subscriptions.create 'SalesChannel',
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
-    sales = document.getElementById 'sales'
-    entry = document.createElement 'li'
-    entry.className = 'bullet-item'
-    entry.appendChild document.createTextNode(data['name'] + " - $" + data['amount'])
-    sales.insertBefore(entry, sales.childNodes[4])
-    total = document.getElementById 'total'
-    document.getElementById('total').innerText = parseInt(total.innerText) + data['amount']
+    ngScope = angular.element('[ng-controller]').scope()
+    ngScope.$broadcast('newSale', data)
 
   sendDataToServer: (name, amount) ->
     console.log '[WebSocket] sending data to server'
@@ -22,9 +19,3 @@ App.sales = App.cable.subscriptions.create 'SalesChannel',
     @perform 'clientMessage',
       name: name
       amount: amount
-
-$(document).on 'click', '[data-action=buy]', (event) ->
-  name = document.getElementById('name').value
-  amount = document.getElementById('amount').value
-  App.sales.sendDataToServer name, amount
-  event.preventDefault()
