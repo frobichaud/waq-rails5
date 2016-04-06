@@ -58,7 +58,7 @@ class SalesViewController : UIViewController, UITableViewDataSource, UITableView
     // MARK: REST API
     private func getSales() {
 //        Alamofire.request(.GET, "http://private-5df9d-model3.apiary-mock.com/sales")
-        Alamofire.request(.GET, "http://\(WS_HOST):\(WS_PORT)/sales/index.json")
+        Alamofire.request(.GET, "http://\(WS_HOST):\(WS_PORT)/sales")
             .responseJSON { response in
                 print(response.request)  // original URL request
                 print(response.response) // URL response
