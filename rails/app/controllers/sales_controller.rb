@@ -11,6 +11,6 @@ class SalesController < ActionController::API
 
   def create
     Sale.create! name: params['name'], amount: params['amount']
-    render status: 204
+    render status: :created
   end
 end

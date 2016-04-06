@@ -2,7 +2,6 @@
 
 app = angular.module('sales', [])
 app.controller 'SalesController', ($scope, $http, SalesService) ->
-  $scope.amount = 500
   $scope.service = SalesService
 
   $scope.refresh = ->

@@ -5,7 +5,6 @@ class Sale < ApplicationRecord
   validates_presence_of :amount
 
   def publish
-    #ActionCable.server.broadcast 'sales_channel', {name: self.name, amount: self.amount}
     SalesWorker.perform_async self.id
   end
 end
